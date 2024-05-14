@@ -1,25 +1,21 @@
-
+## APLIKASI SERVICE COMPUTER
 <h1>Customer</h1>
-<div style="display: flex; justify-content: center;">
-    <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/costumer.png" alt="Screenshot" style="margin: 10px;">
-    <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/costumer_edit.png" alt="Screenshot" style="margin: 10px;">
-    <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/costumer_tambah.png" alt="Screenshot" style="margin: 10px;">
-</div>
+<p align="center">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/costumer.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/costumer_edit.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/costumer_tambah.png" alt="Screenshot">
 
-<h1>Keluhan</h1>
-<div style="display: flex; justify-content: center;">
-    <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_1.png" alt="Screenshot" style="margin: 10px;">
-    <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_daftar.png" alt="Screenshot" style="margin: 10px;">
-    <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_edit.png" alt="Screenshot" style="margin: 10px;">
-    <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_konfirmasi.png" alt="Screenshot" style="margin: 10px;">
-    <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_tambah.png" alt="Screenshot" style="margin: 10px;">
-</div>
+<h1>keluhan</h1>
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_1.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_daftar.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_edit.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_konfirmasi.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_tambah.png" alt="Screenshot">
 
-<h1>Komputer</h1>
-<div style="display: flex; justify-content: center;">
-    <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/komputer_daftar.png" alt="Screenshot" style="margin: 10px;">
-    <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/komputer_daftar.png" alt="Screenshot" style="margin: 10px;">
-</div>
+<h1>komputer</h1>
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/komputer_daftar.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/komputer_daftar.png" alt="Screenshot">
+</p>
 
 
 
