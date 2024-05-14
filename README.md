@@ -1,31 +1,26 @@
 
 <h1>Customer</h1>
-<p align="center">
-  <div style="display: inline-block;">
+<div style="display: flex; justify-content: center;">
     <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/costumer.png" alt="Screenshot" style="margin: 10px;">
     <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/costumer_edit.png" alt="Screenshot" style="margin: 10px;">
     <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/costumer_tambah.png" alt="Screenshot" style="margin: 10px;">
-  </div>
-</p>
+</div>
 
 <h1>Keluhan</h1>
-<p align="center">
-  <div style="display: inline-block;">
+<div style="display: flex; justify-content: center;">
     <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_1.png" alt="Screenshot" style="margin: 10px;">
     <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_daftar.png" alt="Screenshot" style="margin: 10px;">
     <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_edit.png" alt="Screenshot" style="margin: 10px;">
     <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_konfirmasi.png" alt="Screenshot" style="margin: 10px;">
     <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_tambah.png" alt="Screenshot" style="margin: 10px;">
-  </div>
-</p>
+</div>
 
 <h1>Komputer</h1>
-<p align="center">
-  <div style="display: inline-block;">
+<div style="display: flex; justify-content: center;">
     <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/komputer_daftar.png" alt="Screenshot" style="margin: 10px;">
     <img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/komputer_daftar.png" alt="Screenshot" style="margin: 10px;">
-  </div>
-</p>
+</div>
+
 
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
