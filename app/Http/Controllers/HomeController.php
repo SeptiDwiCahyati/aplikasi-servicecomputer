@@ -7,7 +7,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Lakukan logika yang diperlukan untuk halaman beranda di sini
         return view('home');
     }
 }
