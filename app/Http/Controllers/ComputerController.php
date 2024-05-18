@@ -9,8 +9,7 @@ class ComputerController extends Controller
 {
     public function index()
     {
-        $computers = Computer::whereNull('deleted_at')->get(); // Hanya ambil data yang tidak di-soft delete
-
+        $computers = Computer::whereNull('deleted_at')->get(); 
         return view('computer.index', compact('computers')); // Tampilkan view index dengan data komputer
     }
 
