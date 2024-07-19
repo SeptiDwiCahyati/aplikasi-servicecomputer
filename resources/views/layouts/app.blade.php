@@ -31,6 +31,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('computers.index') }}">Komputer</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('servis.index') }}">Servis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('barang.index') }}">Barang</a>
+                    </li>
                 </ul>
             </div>
         </div>
