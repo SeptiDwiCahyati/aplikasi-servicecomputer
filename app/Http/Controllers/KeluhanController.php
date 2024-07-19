@@ -12,15 +12,20 @@ class KeluhanController extends Controller
 {
     public function index(Request $request)
     {
-        // Check if the "Show All" button was pressed
+
         if ($request->has('show_all')) {
             $keluhans = Keluhan::with('customer', 'computer')->whereNull('deleted_at')->get();
         } else {
-            $keluhans = Keluhan::with('customer', 'computer')->whereNull('deleted_at')->paginate(3);
+            $keluhans = Keluhan::with('customer', 'computer')->whereNull('deleted_at')->paginate(10);
         }
-
+        $computers = Computer::all();
         $customers = Customer::all();
-        return view('keluhan.index', compact('keluhans', 'customers', 'request'));
+        return view('keluhan.index', [
+            'keluhans' => $keluhans,
+            'customers' => $customers,
+            'customer' => $request->customer,
+            'computers' => $computers,
+        ]);
     }
 
 
@@ -28,17 +33,15 @@ class KeluhanController extends Controller
 
     public function checkCustomerId(Request $request)
     {
-        $customer_id = $request->input('customer_id');
-        $customer = Customer::find($customer_id);
+        $validatedData = $request->validate([
+            'customer_id' => 'required|exists:customers,customer_id',
+        ]);
 
-        if ($customer) {
-            return redirect()->route('keluhan.addForm', ['customer_id' => $customer_id]);
-        } else {
-            Session::flash('error', 'Tidak Dapat Menemukan Customer Id');
-            return redirect()->route('keluhan.index');
-        }
+        $customer = Customer::find($request->customer_id);
+        $computers = Computer::all();
+
+        return redirect()->route('keluhan.index', ['customer' => $customer, 'computers' => $computers])->with('openModal', true);
     }
-
     public function edit($id)
     {
         $computers = Computer::all();
