@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Servis;
+use App\Models\Keluhan;
+use App\Models\Pegawai;
+use App\Models\Barang;
 
 class ServisController extends Controller
 {
@@ -15,7 +18,10 @@ class ServisController extends Controller
 
     public function create()
     {
-        return view('servis.create');
+        $keluhan = Keluhan::all();
+        $pegawai = Pegawai::all();
+        $barang = Barang::all();
+        return view('servis.create', compact('keluhan', 'pegawai', 'barang'));
     }
 
     public function store(Request $request)
@@ -43,7 +49,10 @@ class ServisController extends Controller
     public function edit($id)
     {
         $servis = Servis::find($id);
-        return view('servis.edit', compact('servis'));
+        $keluhan = Keluhan::all();
+        $pegawai = Pegawai::all();
+        $barang = Barang::all();
+        return view('servis.edit', compact('servis', 'keluhan', 'pegawai', 'barang'));
     }
 
     public function update(Request $request, $id)
