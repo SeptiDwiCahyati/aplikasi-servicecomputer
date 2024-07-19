@@ -7,7 +7,6 @@ use App\Models\Customer;
 use App\Models\Keluhan;
 use Illuminate\Support\Facades\Session;
 
-
 class CustomerController extends Controller
 {
     public function addCustomer(Request $request)
@@ -25,7 +24,6 @@ class CustomerController extends Controller
         $customer->save();
 
         return redirect()->route('customers.index')->with('success', 'Customer berhasil ditambah');
-
     }
 
     public function updateCustomer(Request $request, string $customer_id)
@@ -64,10 +62,6 @@ class CustomerController extends Controller
         return view('customers.edit', ['customer' => $customer]);
     }
 
-
-
-
-
     public function deleteCustomer(string $customer_id)
     {
         $customer = Customer::find($customer_id);
@@ -90,5 +84,4 @@ class CustomerController extends Controller
 
         return redirect()->route('customers.index');
     }
-
 }

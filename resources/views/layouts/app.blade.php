@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>DASHMIN - Bootstrap Admin Template</title>
+
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -20,6 +22,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
     <!-- Libraries Stylesheet -->
     <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
@@ -29,6 +34,52 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+    <!-- Custom Toastr Styles -->
+    <!-- Custom Toastr Styles -->
+    <style>
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1100;
+        }
+
+        .toast {
+            opacity: 1 !important;
+            /* Ensure opacity is set to full */
+            background-color: rgba(0, 0, 0, 0.9) !important;
+            /* Dark background with less transparency */
+            color: #fff !important;
+            /* White text color */
+        }
+
+        .toast-success {
+            background-color: rgba(40, 167, 69, 0.9) !important;
+            /* Green with less transparency */
+        }
+
+        .toast-error {
+            background-color: rgba(220, 53, 69, 0.9) !important;
+            /* Red with less transparency */
+        }
+
+        .toast-info {
+            background-color: rgba(23, 162, 184, 0.9) !important;
+            /* Blue with less transparency */
+        }
+
+        .toast-warning {
+            background-color: rgba(255, 193, 7, 0.9) !important;
+            /* Yellow with less transparency */
+        }
+
+        .toast-message {
+            color: #fff !important;
+            /* Ensure text color is white */
+        }
+    </style>
+
 </head>
 
 <body>
@@ -77,8 +128,31 @@
     <script src="{{ asset('lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
     <script src="{{ asset('lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <!-- Template Javascript -->
     <script src="{{ asset('js/main.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            @if (Session::has('success'))
+                toastr.success("{{ Session::get('success') }}");
+            @endif
+
+            @if (Session::has('error'))
+                toastr.error("{{ Session::get('error') }}");
+            @endif
+
+            @if (Session::has('info'))
+                toastr.info("{{ Session::get('info') }}");
+            @endif
+
+            @if (Session::has('warning'))
+                toastr.warning("{{ Session::get('warning') }}");
+            @endif
+        });
+    </script>
 </body>
 
 </html>
