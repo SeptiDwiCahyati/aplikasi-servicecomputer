@@ -15,7 +15,7 @@ class CreateSupplierTable extends Migration
             $table->string('no_hp', 15);
             $table->unsignedBigInteger('id_barang');
 
-            $table->foreign('id_barang')->references('id_barang')->on('barang')->onDelete('cascade');
+            $table->foreign('id_barang')->references('id_barang')->on('barangs')->onDelete('cascade');
 
             $table->timestamps();
         });

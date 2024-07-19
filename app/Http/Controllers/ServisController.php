@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -7,12 +6,13 @@ use App\Models\Servis;
 use App\Models\Keluhan;
 use App\Models\Pegawai;
 use App\Models\Barang;
+use App\Models\ItemServis;
 
 class ServisController extends Controller
 {
     public function index()
     {
-        $servis = Servis::all();
+        $servis = Servis::with('items')->get();
         return view('servis.index', compact('servis'));
     }
 
@@ -29,26 +29,42 @@ class ServisController extends Controller
         $request->validate([
             'keluhan_id' => 'required|integer',
             'pegawai_id' => 'required|integer',
-            'barang_id' => 'required|integer',
             'tanggal_servis' => 'required|date',
             'deskripsi_servis' => 'required|string',
+            'barang_id' => 'required|array',
+            'barang_id.*' => 'required|integer',
+            'jumlah' => 'required|array',
+            'jumlah.*' => 'required|integer|min:1',
         ]);
 
-        Servis::create($request->all());
+        $servis = Servis::create($request->only([
+            'keluhan_id',
+            'pegawai_id',
+            'tanggal_servis',
+            'deskripsi_servis'
+        ]));
 
-        return redirect()->route('servis.index')
-            ->with('success', 'Servis created successfully.');
+        // Menyimpan multiple barang untuk satu servis
+        foreach ($request->barang_id as $key => $barangId) {
+            ItemServis::create([
+                'servis_id' => $servis->id,
+                'barang_id' => $barangId,
+                'jumlah' => $request->jumlah[$key],
+            ]);
+        }
+
+        return redirect()->route('servis.index')->with('success', 'Servis berhasil ditambahkan');
     }
 
     public function show($id)
     {
-        $servis = Servis::find($id);
+        $servis = Servis::with('items')->find($id);
         return view('servis.show', compact('servis'));
     }
 
     public function edit($id)
     {
-        $servis = Servis::find($id);
+        $servis = Servis::with('items')->findOrFail($id);
         $keluhan = Keluhan::all();
         $pegawai = Pegawai::all();
         $barang = Barang::all();
@@ -60,24 +76,34 @@ class ServisController extends Controller
         $request->validate([
             'keluhan_id' => 'required|integer',
             'pegawai_id' => 'required|integer',
-            'barang_id' => 'required|integer',
             'tanggal_servis' => 'required|date',
             'deskripsi_servis' => 'required|string',
+            'barang_id' => 'required|array',
+            'barang_id.*' => 'required|integer',
+            'jumlah' => 'required|array',
+            'jumlah.*' => 'required|integer|min:1',
         ]);
 
-        $servis = Servis::find($id);
-        $servis->update($request->all());
+        $servis = Servis::findOrFail($id);
+        $servis->update($request->only(['keluhan_id', 'pegawai_id', 'tanggal_servis', 'deskripsi_servis']));
 
-        return redirect()->route('servis.index')
-            ->with('success', 'Servis updated successfully.');
+        ItemServis::where('servis_id', $id)->delete();
+        foreach ($request->barang_id as $key => $barangId) {
+            ItemServis::create([
+                'servis_id' => $servis->id,
+                'barang_id' => $barangId,
+                'jumlah' => $request->jumlah[$key],
+            ]);
+        }
+
+        return redirect()->route('servis.index')->with('success', 'Servis updated successfully.');
     }
 
     public function destroy($id)
     {
-        $servis = Servis::find($id);
+        $servis = Servis::findOrFail($id);
         $servis->delete();
 
-        return redirect()->route('servis.index')
-            ->with('success', 'Servis deleted successfully.');
+        return redirect()->route('servis.index')->with('success', 'Servis deleted successfully.');
     }
 }
