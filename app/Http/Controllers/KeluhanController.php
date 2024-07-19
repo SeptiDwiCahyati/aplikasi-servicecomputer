@@ -10,12 +10,21 @@ use App\Models\Computer;
 
 class KeluhanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $keluhans = Keluhan::with('customer', 'computer')->whereNull('deleted_at')->get();
+        // Check if the "Show All" button was pressed
+        if ($request->has('show_all')) {
+            $keluhans = Keluhan::with('customer', 'computer')->whereNull('deleted_at')->get();
+        } else {
+            $keluhans = Keluhan::with('customer', 'computer')->whereNull('deleted_at')->paginate(3);
+        }
+
         $customers = Customer::all();
-        return view('keluhan.index', compact('keluhans', 'customers'));
+        return view('keluhan.index', compact('keluhans', 'customers', 'request'));
     }
+
+
+
 
     public function checkCustomerId(Request $request)
     {

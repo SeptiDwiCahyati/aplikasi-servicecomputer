@@ -1,17 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Barang Details</h1>
-    <div>
-        <strong>ID:</strong> {{ $barang->id }}
+    <!-- Detail Barang Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-light rounded p-4">
+            <h6 class="mb-4">Barang Details</h6>
+            <div>
+                <strong>ID:</strong> {{ $barang->id }}
+            </div>
+            <div>
+                <strong>Name:</strong> {{ $barang->name }}
+            </div>
+            <div>
+                <strong>Description:</strong> {{ $barang->description }}
+            </div>
+            <a href="{{ route('barang.index') }}" class="btn btn-secondary mt-4">Back to List</a>
+        </div>
     </div>
-    <div>
-        <strong>Name:</strong> {{ $barang->name }}
-    </div>
-    <div>
-        <strong>Description:</strong> {{ $barang->description }}
-    </div>
-    <a href="{{ route('barang.index') }}" class="btn btn-secondary">Back to List</a>
-</div>
+    <!-- Detail Barang End -->
 @endsection
