@@ -44,66 +44,32 @@ class ServisController extends Controller
             'deskripsi_servis'
         ]));
 
-        // Menyimpan multiple barang untuk satu servis
-        foreach ($request->barang_id as $key => $barangId) {
-            ItemServis::create([
-                'servis_id' => $servis->id,
-                'barang_id' => $barangId,
-                'jumlah' => $request->jumlah[$key],
-            ]);
+        if ($servis->servis_id) {
+            foreach ($request->barang_id as $key => $barangId) {
+                ItemServis::create([
+                    'servis_id' => $servis->servis_id,
+                    'barang_id' => $barangId,
+                    'jumlah' => $request->jumlah[$key],
+                ]);
+            }
+        } else {
+            return redirect()->back()->withErrors('Failed to create Servis.');
         }
-
         return redirect()->route('servis.index')->with('success', 'Servis berhasil ditambahkan');
     }
 
+
     public function show($id)
     {
-        $servis = Servis::with('items')->find($id);
+        $servis = Servis::with(['pegawai', 'items.barang'])->findOrFail($id);
         return view('servis.show', compact('servis'));
     }
-
-    public function edit($id)
-    {
-        $servis = Servis::with('items')->findOrFail($id);
-        $keluhan = Keluhan::all();
-        $pegawai = Pegawai::all();
-        $barang = Barang::all();
-        return view('servis.edit', compact('servis', 'keluhan', 'pegawai', 'barang'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'keluhan_id' => 'required|integer',
-            'pegawai_id' => 'required|integer',
-            'tanggal_servis' => 'required|date',
-            'deskripsi_servis' => 'required|string',
-            'barang_id' => 'required|array',
-            'barang_id.*' => 'required|integer',
-            'jumlah' => 'required|array',
-            'jumlah.*' => 'required|integer|min:1',
-        ]);
-
-        $servis = Servis::findOrFail($id);
-        $servis->update($request->only(['keluhan_id', 'pegawai_id', 'tanggal_servis', 'deskripsi_servis']));
-
-        ItemServis::where('servis_id', $id)->delete();
-        foreach ($request->barang_id as $key => $barangId) {
-            ItemServis::create([
-                'servis_id' => $servis->id,
-                'barang_id' => $barangId,
-                'jumlah' => $request->jumlah[$key],
-            ]);
-        }
-
-        return redirect()->route('servis.index')->with('success', 'Servis updated successfully.');
-    }
-
     public function destroy($id)
     {
         $servis = Servis::findOrFail($id);
+        $servis->items()->delete();
         $servis->delete();
-
-        return redirect()->route('servis.index')->with('success', 'Servis deleted successfully.');
+        return redirect()->route('servis.index')->with('success', 'Servis berhasil dihapus');
     }
+
 }
