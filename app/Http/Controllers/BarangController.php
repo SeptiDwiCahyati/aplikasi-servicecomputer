@@ -7,16 +7,27 @@ use App\Models\Barang;
 
 class BarangController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $barang = Barang::all();
-        return view('barang.index', compact('barang'));
+        $merek = $request->input('merek');
+        $query = Barang::query();
+        if ($merek) {
+            $query->where('merek', $merek);
+        }
+        $barang = $query->get();
+        return view('barang.index', [
+            'barang' => $barang,
+            'selectedMerek' => $merek
+        ]);
     }
+
 
     public function create()
     {
-        return view('barang.create');
+        $merekList = ['Toshiba', 'Asus', 'Samsung']; // Example list, modify as needed
+        return view('barang.create', ['merekList' => $merekList]);
     }
+
 
     public function store(Request $request)
     {
@@ -43,8 +54,14 @@ class BarangController extends Controller
     public function edit($id)
     {
         $barang = Barang::find($id);
-        return view('barang.edit', compact('barang'));
+        $merekList = ['Toshiba', 'Asus', 'Samsung']; // Modify this list as needed
+        return view('barang.edit', [
+            'barang' => $barang,
+            'merekList' => $merekList
+        ]);
     }
+
+
 
     public function update(Request $request, $id)
     {

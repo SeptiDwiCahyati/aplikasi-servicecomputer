@@ -23,8 +23,14 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="merek">Merek:</label>
-                    <input type="text" class="form-control" id="merek" name="merek" value="{{ old('merek') }}"
-                        required>
+                    <select id="merek" name="merek" class="form-select" required>
+                        <option value="" disabled selected>Pilih Merek</option>
+                        @foreach ($merekList as $merek)
+                            <option value="{{ $merek }}" {{ old('merek') == $merek ? 'selected' : '' }}>
+                                {{ $merek }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group mb-3">
                     <label for="harga">Harga:</label>

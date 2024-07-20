@@ -4,9 +4,25 @@
     <!-- Daftar Barang Start -->
     <div class="container-fluid pt-4 px-4">
         <div class="bg-light rounded p-4">
-            <div class="d-flex justify-content-between mb-4">
-                <h6 class="mb-4">Daftar Barang</h6>
-                <a href="{{ route('barang.create') }}" class="btn btn-primary">Add Barang</a>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h6 class="mb-0">Daftar Barang</h6>
+                <div class="d-flex align-items-center">
+                    <!-- Filter Merek -->
+                    <form method="GET" action="{{ route('barang.index') }}" class="me-3">
+                        <div class="d-flex align-items-center">
+
+                            <select id="merek" name="merek" class="form-select" style="width: 150px;"
+                                onchange="this.form.submit()">
+                                <option value="">Pilih Merek</option>
+                                <option value="Toshiba" {{ $selectedMerek == 'Toshiba' ? 'selected' : '' }}>Toshiba</option>
+                                <option value="Asus" {{ $selectedMerek == 'Asus' ? 'selected' : '' }}>Asus</option>
+                                <option value="Samsung" {{ $selectedMerek == 'Samsung' ? 'selected' : '' }}>Samsung</option>
+                                <!-- Tambahkan merek lain sesuai kebutuhan -->
+                            </select>
+                        </div>
+                    </form>
+                    <a href="{{ route('barang.create') }}" class="btn btn-primary">Tambah Barang</a>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover mb-0">
@@ -33,9 +49,9 @@
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <a href="{{ route('barang.show', $item->id_barang) }}"
-                                            class="btn btn-info btn-sm mx-1">View</a>
+                                            class="btn btn-info btn-sm mx-1 text-white">View</a>
                                         <a href="{{ route('barang.edit', $item->id_barang) }}"
-                                            class="btn btn-warning btn-sm mx-1">Edit</a>
+                                            class="btn btn-warning btn-sm mx-1 text-white">Edit</a>
                                         <form action="{{ route('barang.destroy', $item->id_barang) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
