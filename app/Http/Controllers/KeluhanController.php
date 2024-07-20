@@ -27,10 +27,6 @@ class KeluhanController extends Controller
             'computers' => $computers,
         ]);
     }
-
-
-
-
     public function checkCustomerId(Request $request)
     {
         $validatedData = $request->validate([
@@ -38,10 +34,14 @@ class KeluhanController extends Controller
         ]);
 
         $customer = Customer::find($request->customer_id);
-        $computers = Computer::all();
-
-        return redirect()->route('keluhan.index', ['customer' => $customer, 'computers' => $computers])->with('openModal', true);
+        return response()->json([
+            'success' => true,
+            'customer' => $customer
+        ]);
     }
+
+
+
     public function edit($id)
     {
         $computers = Computer::all();
@@ -75,20 +75,6 @@ class KeluhanController extends Controller
         $keluhan->save();
 
         return redirect()->route('keluhan.index')->with('success', 'Keluhan berhasil diperbarui.');
-    }
-
-
-    public function addForm(Request $request)
-    {
-        $customer_id = $request->input('customer_id');
-        $customer = Customer::find($customer_id);
-        $computers = Computer::all();
-
-        if ($customer) {
-            return view('keluhan.add', compact('customer', 'computers'));
-        } else {
-            return "Customer ID tidak ditemukan.";
-        }
     }
 
     public function addKeluhan(Request $request)
