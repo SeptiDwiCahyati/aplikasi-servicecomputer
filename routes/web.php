@@ -54,6 +54,7 @@ Route::prefix('barang')->group(function () {
 });
 
 // Servis Routes
+
 Route::prefix('servis')->group(function () {
     Route::get('/', [ServisController::class, 'index'])->name('servis.index');
     Route::post('/', [ServisController::class, 'store'])->name('servis.store');

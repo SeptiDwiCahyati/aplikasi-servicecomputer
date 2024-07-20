@@ -1,29 +1,34 @@
-@extends('layouts.app')
-
-@section('content')
-    <!-- Detail Servis Start -->
-    <div class="container-fluid pt-4 px-4">
-        <div class="bg-light rounded p-4">
-            <h6 class="mb-4">Detail Servis</h6>
-            <div class="card">
-                <div class="card-header">
-                    Servis ID: {{ $servis->servis_id }}
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Nama Pegawai: {{ $servis->pegawai->nama_pegawai }}</h5>
-                    <p class="card-text">Tanggal Servis: {{ $servis->tanggal_servis }}</p>
-                    <p class="card-text">Deskripsi Servis: {{ $servis->deskripsi_servis }}</p>
-                    <h5>Barang yang Dipakai:</h5>
-                    <ul>
-                        @foreach ($servis->items as $item)
-                            <li>{{ $item->barang->nama_barang }} ({{ $item->jumlah }})</li>
-                        @endforeach
-                    </ul>
-                    <h5>Total Harga: {{ $servis->total_harga }}</h5>
-                    <a href="{{ route('servis.index') }}" class="btn btn-primary">Back</a>
-                </div>
-            </div>
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h5 class="card-title mb-0">Servis ID: {{ $servis->servis_id }}</h5>
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+            <h6 class="card-subtitle text-muted">Nama Pegawai</h6>
+            <p class="card-text">{{ $servis->pegawai->nama_pegawai }}</p>
+        </div>
+        <div class="mb-3">
+            <h6 class="card-subtitle text-muted">Tanggal Servis</h6>
+            <p class="card-text">{{ $servis->tanggal_servis }}</p>
+        </div>
+        <div class="mb-3">
+            <h6 class="card-subtitle text-muted">Deskripsi Servis</h6>
+            <p class="card-text">{{ $servis->deskripsi_servis }}</p>
+        </div>
+        <div class="mb-3">
+            <h6 class="card-subtitle text-muted">Barang yang Dipakai</h6>
+            <ul class="list-group">
+                @foreach ($servis->items as $item)
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ $item->barang->nama_barang }}
+                        <span class="badge bg-primary rounded-pill">{{ $item->jumlah }}</span>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+        <div>
+            <h6 class="card-subtitle text-muted">Total Harga</h6>
+            <p class="card-text fw-bold">{{ $servis->total_harga }}</p>
         </div>
     </div>
-    <!-- Detail Servis End -->
-@endsection
+</div>

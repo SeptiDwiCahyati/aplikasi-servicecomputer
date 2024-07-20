@@ -18,6 +18,7 @@ class ServisController extends Controller
         $barang = Barang::all();
         return view('servis.index', compact('servis', 'keluhan', 'pegawai', 'barang'));
     }
+
     public function edit($id)
     {
         $servis = Servis::with('items')->findOrFail($id);
@@ -102,13 +103,16 @@ class ServisController extends Controller
         return redirect()->route('servis.index')->with('success', 'Servis berhasil ditambahkan');
     }
 
-
     public function show($id)
     {
         $servis = Servis::with(['pegawai', 'items.barang'])->findOrFail($id);
+
+        if (request()->ajax()) {
+            return view('servis.partials.view', compact('servis'))->render();
+        }
+
         return view('servis.show', compact('servis'));
     }
-
 
     public function destroy($id)
     {
@@ -117,5 +121,4 @@ class ServisController extends Controller
         $servis->delete();
         return redirect()->route('servis.index')->with('success', 'Servis berhasil dihapus');
     }
-
 }

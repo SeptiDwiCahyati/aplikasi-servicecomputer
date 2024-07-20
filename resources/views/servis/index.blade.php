@@ -35,8 +35,11 @@
                                 <td>{{ $item->total_harga }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('servis.show', $item->servis_id) }}"
-                                            class="btn btn-info btn-sm">View</a>
+                                        <!-- Button trigger modal for view -->
+                                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#viewServisModal" data-id="{{ $item->servis_id }}">
+                                            View
+                                        </button>
                                         <!-- Button trigger modal for edit -->
                                         <button type="button" class="btn btn-warning btn-sm ml-2" data-bs-toggle="modal"
                                             data-bs-target="#editServisModal" data-id="{{ $item->servis_id }}">
@@ -91,6 +94,22 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal View Servis -->
+    <div class="modal fade" id="viewServisModal" tabindex="-1" aria-labelledby="viewServisModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewServisModalLabel">Detail Servis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="viewFormContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Load edit form via AJAX
         document.addEventListener('DOMContentLoaded', function() {
@@ -108,10 +127,22 @@
                         container.innerHTML = html;
                     });
             });
+
+            var viewServisModal = document.getElementById('viewServisModal');
+            viewServisModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var servisId = button.getAttribute('data-id');
+
+                var container = document.getElementById('viewFormContainer');
+                container.innerHTML = 'Loading...';
+
+                fetch('/servis/' + servisId)
+                    .then(response => response.text())
+                    .then(html => {
+                        container.innerHTML = html;
+                    });
+            });
         });
     </script>
     <!-- Daftar Servis End -->
 @endsection
-
-@push('scripts')
-@endpush
