@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Daftar Komputer dan Tambah Komputer Start -->
     <div class="container-fluid pt-4 px-4">
         <div class="row g-4">
             <!-- Daftar Komputer -->
@@ -31,10 +30,10 @@
                                         <td>{{ $computer->kelengkapan }}</td>
                                         <td>
                                             <div class="d-flex justify-content-center">
-                                                <a href="{{ route('computers.edit', $computer->id_komputer) }}"
-                                                    class="btn btn-sm btn-info me-2 text-white fw-bold">
+                                                <button class="btn btn-sm btn-info me-2 text-white fw-bold"
+                                                    onclick="editComputer('{{ $computer->id_komputer }}')">
                                                     <i class="fas fa-edit"></i> Edit
-                                                </a>
+                                                </button>
                                                 <form action="{{ route('computers.delete', $computer->id_komputer) }}"
                                                     method="POST" class="d-inline">
                                                     @csrf
@@ -94,17 +93,61 @@
             </div>
         </div>
     </div>
-    <!-- Daftar Komputer dan Tambah Komputer End -->
-@endsection
 
-@push('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-@endpush
-
-@push('scripts')
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Komputer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" action="" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-3">
+                            <label for="edit_id_komputer" class="form-label">ID Komputer</label>
+                            <input type="text" class="form-control" id="edit_id_komputer" name="id_komputer" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_merek" class="form-label">Merek</label>
+                            <select class="form-control" id="edit_merek" name="merek" required>
+                                <option value="asus">Asus</option>
+                                <option value="acer">Acer</option>
+                                <option value="dell">Dell</option>
+                                <option value="lain">Lain</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_kelengkapan" class="form-label">Kelengkapan</label>
+                            <textarea class="form-control" id="edit_kelengkapan" name="kelengkapan" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Komputer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         document.getElementById('refreshTable').addEventListener('click', function() {
             location.reload();
         });
+
+        function editComputer(id_komputer) {
+            fetch(`/computers/${id_komputer}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('edit_id_komputer').value = data.id_komputer;
+                    document.getElementById('edit_merek').value = data.merek;
+                    document.getElementById('edit_kelengkapan').value = data.kelengkapan;
+                    document.getElementById('editForm').action = `/computers/${id_komputer}`;
+                    new bootstrap.Modal(document.getElementById('editModal')).show();
+                });
+        }
     </script>
+@endsection
+
+@push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 @endpush

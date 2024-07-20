@@ -9,7 +9,7 @@ class ComputerController extends Controller
 {
     public function index()
     {
-        $computers = Computer::whereNull('deleted_at')->get(); 
+        $computers = Computer::whereNull('deleted_at')->get();
         return view('computer.index', compact('computers')); // Tampilkan view index dengan data komputer
     }
 
@@ -39,13 +39,12 @@ class ComputerController extends Controller
         $computer = Computer::find($id_komputer);
 
         if (!$computer) {
-            return response()->json([
-                'message' => 'Komputer tidak ditemukan'
-            ], 404);
+            return response()->json(['message' => 'Komputer tidak ditemukan'], 404);
         }
 
         return response()->json($computer);
     }
+
     public function editComputer(string $id_komputer)
     {
         $computer = Computer::find($id_komputer);

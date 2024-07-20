@@ -41,6 +41,7 @@ Route::prefix('computers')->group(function () {
     Route::delete('/{id_komputer}', [ComputerController::class, 'deleteComputer'])->name('computers.delete');
 });
 
+
 // Barang Routes
 Route::prefix('barang')->group(function () {
     Route::get('/', [BarangController::class, 'index'])->name('barang.index');
