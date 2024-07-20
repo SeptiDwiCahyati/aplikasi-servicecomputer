@@ -24,7 +24,6 @@ Route::prefix('customers')->group(function () {
 Route::prefix('keluhan')->group(function () {
     Route::get('/', [KeluhanController::class, 'index'])->name('keluhan.index');
     Route::post('/keluhan/check-customer-id', [KeluhanController::class, 'checkCustomerId'])->name('keluhan.checkCustomerId');
-
     Route::get('/tambah-data', [KeluhanController::class, 'addForm'])->name('keluhan.addForm');
     Route::post('/keluhan', [KeluhanController::class, 'addKeluhan'])->name('keluhan.store');
     Route::get('/{id}/edit', [KeluhanController::class, 'edit'])->name('keluhan.edit');

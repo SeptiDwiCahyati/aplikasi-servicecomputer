@@ -44,10 +44,16 @@ class KeluhanController extends Controller
 
     public function edit($id)
     {
+        $keluhan = Keluhan::with('customer')->findOrFail($id);
         $computers = Computer::all();
-        $keluhan = Keluhan::findOrFail($id);
-        return view('keluhan.edit', compact('keluhan', 'computers'));
+
+        return response()->json([
+            'success' => true,
+            'keluhan' => $keluhan,
+            'computers' => $computers
+        ]);
     }
+
 
     public function destroy($id)
     {

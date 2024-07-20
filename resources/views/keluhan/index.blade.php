@@ -63,9 +63,10 @@
                                 <td>{{ $keluhan->computer->merek }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-primary"
-                                        href="{{ route('keluhan.edit', $keluhan->id_keluhan) }}">
+                                        onclick="loadKeluhanData('{{ $keluhan->id_keluhan }}')">
                                         <i class="fa fa-edit me-1"></i>Edit
                                     </a>
+
                                 </td>
                                 <td>
                                     <form action="{{ route('keluhan.destroy', $keluhan->id_keluhan) }}" method="POST"
@@ -166,6 +167,109 @@
         </div>
     </div>
 
+    <!-- Edit Keluhan Modal -->
+    <div class="modal fade" id="editKeluhanModal" tabindex="-1" aria-labelledby="editKeluhanModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editKeluhanModalLabel">Edit Keluhan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info mb-4">
+                        <h5 class="alert-heading">Informasi Customer</h5>
+                        <p class="mb-0"><strong>Customer ID:</strong> <span id="editModalCustomerId"></span></p>
+                        <p class="mb-0"><strong>Nama:</strong> <span id="editModalCustomerName"></span></p>
+                    </div>
+                    <form id="editKeluhanForm" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="customer_id" id="editModalCustomerIdField">
+                        <div class="mb-3">
+                            <label for="edit_nama_keluhan" class="form-label">Nama Keluhan</label>
+                            <input type="text" id="edit_nama_keluhan" name="nama_keluhan"
+                                class="form-control @error('nama_keluhan') is-invalid @enderror" required
+                                placeholder="Masukkan nama keluhan">
+                            @error('nama_keluhan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_ongkos" class="form-label">Ongkos</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" id="edit_ongkos" name="ongkos"
+                                    class="form-control @error('ongkos') is-invalid @enderror" required
+                                    placeholder="Masukkan ongkos">
+                            </div>
+                            @error('ongkos')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_id_komputer" class="form-label">Merek Komputer</label>
+                            <select name="id_komputer" id="edit_id_komputer"
+                                class="form-select @error('id_komputer') is-invalid @enderror" required>
+                                <option value="" selected disabled>-- Pilih Merek Komputer --</option>
+                                @foreach ($computers as $computer)
+                                    <option value="{{ $computer->id_komputer }}">{{ $computer->merek }}</option>
+                                @endforeach
+                            </select>
+                            @error('id_komputer')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-4">
+                            <label for="edit_deskripsi" class="form-label">Deskripsi</label>
+                            <textarea id="edit_deskripsi" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror"
+                                rows="4" placeholder="Deskripsikan keluhan secara detail"></textarea>
+                            @error('deskripsi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Simpan Perubahan
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function loadKeluhanData(keluhanId) {
+            fetch(`/keluhan/${keluhanId}/edit`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('editModalCustomerId').innerText = data.keluhan.customer_id;
+                        document.getElementById('editModalCustomerName').innerText = data.keluhan.customer
+                            .nama_customer;
+                        document.getElementById('editModalCustomerIdField').value = data.keluhan.customer_id;
+
+                        document.getElementById('edit_nama_keluhan').value = data.keluhan.nama_keluhan;
+                        document.getElementById('edit_ongkos').value = data.keluhan.ongkos;
+                        document.getElementById('edit_id_komputer').value = data.keluhan.id_komputer;
+                        document.getElementById('edit_deskripsi').value = data.keluhan.deskripsi;
+
+                        // Correctly set the action URL
+                        document.getElementById('editKeluhanForm').action = `/keluhan/${keluhanId}`;
+
+                        new bootstrap.Modal(document.getElementById('editKeluhanModal')).show();
+                    } else {
+                        alert('Keluhan tidak ditemukan');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan, coba lagi nanti');
+                });
+        }
+    </script>
+
     <script>
         function submitCheckCustomerForm() {
             const customerId = document.getElementById('customer_id').value;
@@ -187,7 +291,6 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Show modal and populate form fields
                         document.getElementById('modalCustomerId').innerText = data.customer.customer_id;
                         document.getElementById('modalCustomerName').innerText = data.customer.nama_customer;
                         document.getElementById('modalCustomerIdField').value = data.customer.customer_id;
