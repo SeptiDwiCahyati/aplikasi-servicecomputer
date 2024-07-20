@@ -10,7 +10,7 @@ class ComputerController extends Controller
     public function index()
     {
         $computers = Computer::whereNull('deleted_at')->get();
-        return view('computer.index', compact('computers')); // Tampilkan view index dengan data komputer
+        return view('computer.index', compact('computers'));
     }
 
     public function addComputer(Request $request)

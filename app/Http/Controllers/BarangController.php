@@ -24,7 +24,7 @@ class BarangController extends Controller
 
     public function create()
     {
-        $merekList = ['Toshiba', 'Asus', 'Samsung']; // Example list, modify as needed
+        $merekList = ['Toshiba', 'Asus', 'Samsung'];
         return view('barang.create', ['merekList' => $merekList]);
     }
 

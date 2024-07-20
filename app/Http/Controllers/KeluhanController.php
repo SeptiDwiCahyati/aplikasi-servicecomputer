@@ -66,7 +66,7 @@ class KeluhanController extends Controller
             'ongkos' => 'required|numeric',
             'id_komputer' => 'required|max:10',
             'customer_id' => 'required|exists:customers,customer_id',
-            'deskripsi' => 'nullable|string' // Tambahkan validasi ini
+            'deskripsi' => 'nullable|string' 
         ]);
 
         $keluhan = Keluhan::findOrFail($id);
@@ -83,7 +83,7 @@ class KeluhanController extends Controller
             'ongkos' => 'required|numeric',
             'id_komputer' => 'required|max:10',
             'customer_id' => 'required|exists:customers,customer_id',
-            'deskripsi' => 'nullable|string' // Tambahkan validasi ini
+            'deskripsi' => 'nullable|string' 
         ]);
 
         Keluhan::create($validatedData);
@@ -120,7 +120,7 @@ class KeluhanController extends Controller
             'ongkos' => 'required|numeric',
             'id_komputer' => 'required|max:10',
             'customer_id' => 'required|exists:customers,customer_id',
-            'deskripsi' => 'nullable|string' // Tambahkan validasi ini
+            'deskripsi' => 'nullable|string' 
         ]);
 
         $keluhan->update($validatedData);
