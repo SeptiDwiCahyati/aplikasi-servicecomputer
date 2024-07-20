@@ -27,8 +27,6 @@ class ServisController extends Controller
         return view('servis.edit', compact('servis', 'keluhan', 'pegawai', 'barang'));
     }
 
-
-
     public function create()
     {
         $keluhan = Keluhan::all();
@@ -37,6 +35,38 @@ class ServisController extends Controller
         return view('servis.create', compact('keluhan', 'pegawai', 'barang'));
     }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'keluhan_id' => 'required|integer',
+            'pegawai_id' => 'required|integer',
+            'tanggal_servis' => 'required|date',
+            'deskripsi_servis' => 'required|string',
+            'barang_id' => 'required|array',
+            'barang_id.*' => 'required|integer',
+            'jumlah' => 'required|array',
+            'jumlah.*' => 'required|integer|min:1',
+        ]);
+
+        $servis = Servis::findOrFail($id);
+        $servis->update($request->only([
+            'keluhan_id',
+            'pegawai_id',
+            'tanggal_servis',
+            'deskripsi_servis'
+        ]));
+
+        $servis->items()->delete();
+        foreach ($request->barang_id as $key => $barangId) {
+            ItemServis::create([
+                'servis_id' => $servis->servis_id,
+                'barang_id' => $barangId,
+                'jumlah' => $request->jumlah[$key],
+            ]);
+        }
+
+        return redirect()->route('servis.index')->with('success', 'Servis berhasil diupdate');
+    }
 
     public function store(Request $request)
     {
@@ -78,6 +108,7 @@ class ServisController extends Controller
         $servis = Servis::with(['pegawai', 'items.barang'])->findOrFail($id);
         return view('servis.show', compact('servis'));
     }
+
 
     public function destroy($id)
     {

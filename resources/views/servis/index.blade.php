@@ -37,8 +37,11 @@
                                     <div class="btn-group">
                                         <a href="{{ route('servis.show', $item->servis_id) }}"
                                             class="btn btn-info btn-sm">View</a>
-                                        <a href="{{ route('servis.edit', $item->servis_id) }}"
-                                            class="btn btn-warning btn-sm ml-2">Edit</a>
+                                        <!-- Button trigger modal for edit -->
+                                        <button type="button" class="btn btn-warning btn-sm ml-2" data-bs-toggle="modal"
+                                            data-bs-target="#editServisModal" data-id="{{ $item->servis_id }}">
+                                            Edit
+                                        </button>
                                         <form action="{{ route('servis.destroy', $item->servis_id) }}" method="POST"
                                             style="display:inline;">
                                             @csrf
@@ -55,7 +58,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Add Servis -->
     <div class="modal fade" id="addServisModal" tabindex="-1" aria-labelledby="addServisModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -73,5 +76,42 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Edit Servis -->
+    <div class="modal fade" id="editServisModal" tabindex="-1" aria-labelledby="editServisModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editServisModalLabel">Edit Servis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="editFormContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Load edit form via AJAX
+        document.addEventListener('DOMContentLoaded', function() {
+            var editServisModal = document.getElementById('editServisModal');
+            editServisModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var servisId = button.getAttribute('data-id');
+
+                var container = document.getElementById('editFormContainer');
+                container.innerHTML = 'Loading...';
+
+                fetch('/servis/' + servisId + '/edit')
+                    .then(response => response.text())
+                    .then(html => {
+                        container.innerHTML = html;
+                    });
+            });
+        });
+    </script>
     <!-- Daftar Servis End -->
 @endsection
+
+@push('scripts')
+@endpush
