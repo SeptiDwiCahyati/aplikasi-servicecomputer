@@ -13,8 +13,20 @@ class ServisController extends Controller
     public function index()
     {
         $servis = Servis::with('items.barang')->get();
-        return view('servis.index', compact('servis'));
+        $keluhan = Keluhan::all();
+        $pegawai = Pegawai::all();
+        $barang = Barang::all();
+        return view('servis.index', compact('servis', 'keluhan', 'pegawai', 'barang'));
     }
+    public function edit($id)
+    {
+        $servis = Servis::with('items')->findOrFail($id);
+        $keluhan = Keluhan::all();
+        $pegawai = Pegawai::all();
+        $barang = Barang::all();
+        return view('servis.edit', compact('servis', 'keluhan', 'pegawai', 'barang'));
+    }
+
 
 
     public function create()
@@ -24,6 +36,7 @@ class ServisController extends Controller
         $barang = Barang::all();
         return view('servis.create', compact('keluhan', 'pegawai', 'barang'));
     }
+
 
     public function store(Request $request)
     {

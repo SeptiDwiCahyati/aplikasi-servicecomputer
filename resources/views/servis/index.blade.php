@@ -6,7 +6,10 @@
         <div class="bg-light rounded p-4">
             <div class="d-flex justify-content-between mb-4">
                 <h6 class="mb-4">Daftar Servis</h6>
-                <a href="{{ route('servis.create') }}" class="btn btn-primary">Add Servis</a>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addServisModal">
+                    Add Servis
+                </button>
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -48,6 +51,25 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addServisModal" tabindex="-1" aria-labelledby="addServisModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addServisModalLabel">Create New Servis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @include('servis.create', [
+                        'keluhan' => $keluhan,
+                        'pegawai' => $pegawai,
+                        'barang' => $barang,
+                    ])
+                </div>
             </div>
         </div>
     </div>

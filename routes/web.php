@@ -57,7 +57,6 @@ Route::prefix('barang')->group(function () {
 Route::prefix('servis')->group(function () {
     Route::get('/', [ServisController::class, 'index'])->name('servis.index');
     Route::post('/', [ServisController::class, 'store'])->name('servis.store');
-    Route::get('/create', [ServisController::class, 'create'])->name('servis.create');
     Route::get('/{id}/edit', [ServisController::class, 'edit'])->name('servis.edit');
     Route::put('/{id}', [ServisController::class, 'update'])->name('servis.update');
     Route::delete('/{id}', [ServisController::class, 'destroy'])->name('servis.destroy');
