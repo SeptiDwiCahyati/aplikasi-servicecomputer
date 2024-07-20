@@ -38,7 +38,6 @@
                             <th scope="col">Nama</th>
                             <th scope="col">Alamat</th>
                             <th scope="col">Jenis Kelamin</th>
-                            <th scope="col">Edit</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
@@ -49,13 +48,12 @@
                                 <td>{{ $customer->nama_customer }}</td>
                                 <td>{{ $customer->alamat }}</td>
                                 <td>{{ $customer->jenis_kelamin }}</td>
-                                <td>
-                                    <a class="btn btn-sm btn-primary"
+                                <td class="text-center">
+                                    <a class="btn btn-sm btn-primary me-1"
                                         href="{{ url('customers/edit/' . $customer->customer_id) }}">Edit</a>
-                                </td>
-                                <td>
                                     <form method="POST"
-                                        action="{{ route('delete_customer', ['customer_id' => $customer->customer_id]) }}">
+                                        action="{{ route('delete_customer', ['customer_id' => $customer->customer_id]) }}"
+                                        style="display:inline-block;">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-danger"

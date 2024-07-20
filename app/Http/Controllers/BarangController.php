@@ -36,7 +36,6 @@ class BarangController extends Controller
             'merek' => 'required|string|max:100',
             'harga' => 'required|integer',
             'stok' => 'required|integer',
-            'satuan' => 'required|string|max:10',
         ]);
 
         Barang::create($request->all());
@@ -44,6 +43,23 @@ class BarangController extends Controller
         return redirect()->route('barang.index')
             ->with('success', 'Barang created successfully.');
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama_barang' => 'required|string|max:150',
+            'merek' => 'required|string|max:100',
+            'harga' => 'required|integer',
+            'stok' => 'required|integer',
+        ]);
+
+        $barang = Barang::find($id);
+        $barang->update($request->all());
+
+        return redirect()->route('barang.index')
+            ->with('success', 'Barang updated successfully.');
+    }
+
 
     public function show($id)
     {
@@ -54,7 +70,7 @@ class BarangController extends Controller
     public function edit($id)
     {
         $barang = Barang::find($id);
-        $merekList = ['Toshiba', 'Asus', 'Samsung']; // Modify this list as needed
+        $merekList = ['Toshiba', 'Asus', 'Samsung', 'Lainnya'];
         return view('barang.edit', [
             'barang' => $barang,
             'merekList' => $merekList
@@ -63,22 +79,7 @@ class BarangController extends Controller
 
 
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nama_barang' => 'required|string|max:150',
-            'merek' => 'required|string|max:100',
-            'harga' => 'required|integer',
-            'stok' => 'required|integer',
-            'satuan' => 'required|string|max:10',
-        ]);
 
-        $barang = Barang::find($id);
-        $barang->update($request->all());
-
-        return redirect()->route('barang.index')
-            ->with('success', 'Barang updated successfully.');
-    }
 
     public function destroy($id)
     {

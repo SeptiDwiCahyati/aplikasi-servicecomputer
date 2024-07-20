@@ -16,7 +16,13 @@ class Keluhan extends Model
 
     use HasFactory;
 
-
+    protected $fillable = [
+        'nama_keluhan',
+        'ongkos',
+        'id_komputer',
+        'customer_id',
+        'deskripsi'
+    ];
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');

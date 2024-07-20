@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->integer('ongkos');
             $table->string('id_komputer', 10);
             $table->unsignedInteger('customer_id');
+            $table->text('deskripsi')->nullable();
             $table->foreign('customer_id')->references('customer_id')->on('customers')->onDelete('cascade');
             $table->foreign('id_komputer')->references('id_komputer')->on('computers')->onDelete('cascade');
             $table->timestamps();

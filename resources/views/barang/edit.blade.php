@@ -43,11 +43,6 @@
                     <input type="number" class="form-control" id="stok" name="stok"
                         value="{{ old('stok', $barang->stok) }}" required>
                 </div>
-                <div class="form-group mb-3">
-                    <label for="satuan">Satuan:</label>
-                    <input type="text" class="form-control" id="satuan" name="satuan"
-                        value="{{ old('satuan', $barang->satuan) }}" required>
-                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

@@ -10,7 +10,6 @@
                     <!-- Filter Merek -->
                     <form method="GET" action="{{ route('barang.index') }}" class="me-3">
                         <div class="d-flex align-items-center">
-
                             <select id="merek" name="merek" class="form-select" style="width: 150px;"
                                 onchange="this.form.submit()">
                                 <option value="">Pilih Merek</option>
@@ -33,7 +32,6 @@
                             <th style="width: 15%;">Merek</th>
                             <th style="width: 15%;">Harga</th>
                             <th style="width: 10%;">Stok</th>
-                            <th style="width: 10%;">Satuan</th>
                             <th class="text-center" style="width: 25%;">Actions</th>
                         </tr>
                     </thead>
@@ -45,7 +43,6 @@
                                 <td class="text-center">{{ $item->merek }}</td>
                                 <td class="text-center">{{ $item->harga }}</td>
                                 <td class="text-center">{{ $item->stok }}</td>
-                                <td class="text-center">{{ $item->satuan }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <a href="{{ route('barang.show', $item->id_barang) }}"

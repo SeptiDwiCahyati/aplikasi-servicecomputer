@@ -12,7 +12,6 @@ class KeluhanController extends Controller
 {
     public function index(Request $request)
     {
-
         if ($request->has('show_all')) {
             $keluhans = Keluhan::with('customer', 'computer')->whereNull('deleted_at')->get();
         } else {
@@ -27,6 +26,7 @@ class KeluhanController extends Controller
             'computers' => $computers,
         ]);
     }
+
     public function checkCustomerId(Request $request)
     {
         $validatedData = $request->validate([
@@ -40,8 +40,6 @@ class KeluhanController extends Controller
         ]);
     }
 
-
-
     public function edit($id)
     {
         $keluhan = Keluhan::with('customer')->findOrFail($id);
@@ -53,7 +51,6 @@ class KeluhanController extends Controller
             'computers' => $computers
         ]);
     }
-
 
     public function destroy($id)
     {
@@ -69,16 +66,12 @@ class KeluhanController extends Controller
             'ongkos' => 'required|numeric',
             'id_komputer' => 'required|max:10',
             'customer_id' => 'required|exists:customers,customer_id',
+            'deskripsi' => 'nullable|string' // Tambahkan validasi ini
         ]);
 
         $keluhan = Keluhan::findOrFail($id);
 
-        $keluhan->nama_keluhan = $validatedData['nama_keluhan'];
-        $keluhan->ongkos = $validatedData['ongkos'];
-        $keluhan->id_komputer = $validatedData['id_komputer'];
-        $keluhan->customer_id = $validatedData['customer_id'];
-
-        $keluhan->save();
+        $keluhan->update($validatedData);
 
         return redirect()->route('keluhan.index')->with('success', 'Keluhan berhasil diperbarui.');
     }
@@ -90,17 +83,12 @@ class KeluhanController extends Controller
             'ongkos' => 'required|numeric',
             'id_komputer' => 'required|max:10',
             'customer_id' => 'required|exists:customers,customer_id',
+            'deskripsi' => 'nullable|string' // Tambahkan validasi ini
         ]);
 
-        $keluhan = new Keluhan();
-        $keluhan->nama_keluhan = $validatedData['nama_keluhan'];
-        $keluhan->ongkos = $validatedData['ongkos'];
-        $keluhan->id_komputer = $validatedData['id_komputer'];
-        $keluhan->customer_id = $validatedData['customer_id'];
+        Keluhan::create($validatedData);
 
-        $keluhan->save();
-
-        Session::flash('success', 'keluhan berhasil di tambahkan');
+        Session::flash('success', 'Keluhan berhasil ditambahkan');
         return redirect()->route('keluhan.index');
     }
 
@@ -132,13 +120,10 @@ class KeluhanController extends Controller
             'ongkos' => 'required|numeric',
             'id_komputer' => 'required|max:10',
             'customer_id' => 'required|exists:customers,customer_id',
+            'deskripsi' => 'nullable|string' // Tambahkan validasi ini
         ]);
 
-        $keluhan->nama_keluhan = $validatedData['nama_keluhan'];
-        $keluhan->ongkos = $validatedData['ongkos'];
-        $keluhan->id_komputer = $validatedData['id_komputer'];
-        $keluhan->customer_id = $validatedData['customer_id'];
-        $keluhan->save();
+        $keluhan->update($validatedData);
 
         return response()->json([
             'message' => 'Keluhan berhasil diperbarui'
