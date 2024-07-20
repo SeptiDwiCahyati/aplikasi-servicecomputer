@@ -14,7 +14,7 @@
                         </button>
                     </div>
                     <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <table class="table text-center align-middle table-bordered table-hover mb-0">
                             <thead class="bg-primary text-white">
                                 <tr>
                                     <th>ID Komputer</th>
@@ -30,9 +30,9 @@
                                         <td>{{ ucfirst($computer->merek) }}</td>
                                         <td>{{ $computer->kelengkapan }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
+                                            <div class="d-flex justify-content-center">
                                                 <a href="{{ route('computers.edit', $computer->id_komputer) }}"
-                                                    class="btn btn-sm btn-info">
+                                                    class="btn btn-sm btn-info me-2 text-white fw-bold">
                                                     <i class="fas fa-edit"></i> Edit
                                                 </a>
                                                 <form action="{{ route('computers.delete', $computer->id_komputer) }}"

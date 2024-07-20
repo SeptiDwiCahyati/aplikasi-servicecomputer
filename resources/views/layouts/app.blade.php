@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>Fix Comp - Solusi Cerdas Masalah Komputer</title>
 
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">

@@ -9,6 +9,7 @@ class Servis extends Model
     use HasFactory;
 
     protected $primaryKey = 'servis_id';
+    protected $table = 'servis';
     public $incrementing = true;
     protected $keyType = 'int';
 

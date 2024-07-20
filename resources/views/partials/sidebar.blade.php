@@ -1,8 +1,14 @@
 <div class="sidebar pe-4 pb-3">
     <nav class="navbar bg-light navbar-light">
         <a href="{{ route('home') }}" class="navbar-brand mx-4 mb-3">
-            <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Fix Comp</h3>
+            <h3 class="text-primary">
+                <img src="{{ asset('img/icon.png') }}" alt="Logo"
+                    style="width: 62px; height: 62px; margin-right: 4px;">
+                Fix Comp
+            </h3>
         </a>
+
+
         <div class="d-flex align-items-center ms-4 mb-4">
             <div class="position-relative">
                 <img class="rounded-circle" src="{{ asset('img/user.jpg') }}" alt=""
