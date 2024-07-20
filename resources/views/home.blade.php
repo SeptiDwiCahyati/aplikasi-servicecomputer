@@ -44,76 +44,54 @@
     </div>
     <!-- Sale & Revenue End -->
 
-    <!-- Recent Sales Start -->
+    <!-- Riwayat Servis Start -->
     <div class="container-fluid pt-4 px-4">
         <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0">Recent Salse</h6>
-                <a href="">Show All</a>
+                <h6 class="mb-0">Riwayat Servis</h6>
+                <a href="{{ route('servis.index') }}">Show All</a>
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                         <tr class="text-dark">
-                            <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Invoice</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
+                            <th>Nama Customer</th>
+                            <th>Nama Karyawan</th>
+                            <th>Tanggal</th>
+                            <th>Invoice/ID</th>
+                            <th>Total Biaya</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><input class="form-check-input" type="checkbox"></td>
-                            <td>01 Jan 2045</td>
-                            <td>INV-0123</td>
-                            <td>Jhon Doe</td>
-                            <td>$123</td>
-                            <td>Paid</td>
-                            <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                        </tr>
-                        <tr>
-                            <td><input class="form-check-input" type="checkbox"></td>
-                            <td>01 Jan 2045</td>
-                            <td>INV-0123</td>
-                            <td>Jhon Doe</td>
-                            <td>$123</td>
-                            <td>Paid</td>
-                            <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                        </tr>
-                        <tr>
-                            <td><input class="form-check-input" type="checkbox"></td>
-                            <td>01 Jan 2045</td>
-                            <td>INV-0123</td>
-                            <td>Jhon Doe</td>
-                            <td>$123</td>
-                            <td>Paid</td>
-                            <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                        </tr>
-                        <tr>
-                            <td><input class="form-check-input" type="checkbox"></td>
-                            <td>01 Jan 2045</td>
-                            <td>INV-0123</td>
-                            <td>Jhon Doe</td>
-                            <td>$123</td>
-                            <td>Paid</td>
-                            <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                        </tr>
-                        <tr>
-                            <td><input class="form-check-input" type="checkbox"></td>
-                            <td>01 Jan 2045</td>
-                            <td>INV-0123</td>
-                            <td>Jhon Doe</td>
-                            <td>$123</td>
-                            <td>Paid</td>
-                            <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                        </tr>
+                        @foreach ($keluhanServis as $keluhan)
+                            @foreach ($keluhan->servis as $servis)
+                                <tr>
+                                    <td>{{ $keluhan->customer->nama_customer }}</td>
+                                    <td>{{ $servis->pegawai->nama_pegawai }}</td>
+                                    <td>{{ $servis->tanggal_servis }}</td>
+                                    <td>{{ $servis->servis_id }}</td>
+                                    <td>
+                                        @php
+                                            $totalHarga =
+                                                $keluhan->ongkos +
+                                                $servis->items->sum(function ($item) {
+                                                    return $item->jumlah * $item->barang->harga;
+                                                });
+                                        @endphp
+                                        {{ number_format($totalHarga, 2) }}
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary"
+                                            href="{{ route('servis.show', $servis->servis_id) }}">Detail</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <!-- Recent Sales End -->
+    <!-- Riwayat Servis End -->
 @endsection

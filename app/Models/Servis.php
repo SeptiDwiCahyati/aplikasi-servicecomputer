@@ -29,4 +29,16 @@ class Servis extends Model
     {
         return $this->belongsTo(Pegawai::class, 'pegawai_id', 'id_pegawai');
     }
+
+    public function keluhan()
+    {
+        return $this->belongsTo(Keluhan::class, 'keluhan_id', 'id_keluhan');
+    }
+
+    public function getTotalHargaAttribute()
+    {
+        return $this->items->sum(function ($item) {
+            return $item->jumlah * $item->barang->harga;
+        });
+    }
 }

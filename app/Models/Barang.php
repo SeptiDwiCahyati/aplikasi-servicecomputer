@@ -17,4 +17,9 @@ class Barang extends Model
         'stok',
         'satuan',
     ];
+
+    public function itemServis()
+    {
+        return $this->hasMany(ItemServis::class, 'barang_id', 'id_barang');
+    }
 }

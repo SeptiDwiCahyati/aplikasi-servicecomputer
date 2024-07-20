@@ -12,4 +12,9 @@ class Customer extends Model
     protected $dates = ['deleted_at'];
     protected $primaryKey = 'customer_id';
     protected $fillable = ['nama_customer', 'alamat', 'jenis_kelamin'];
+    public function keluhan()
+    {
+        return $this->hasMany(Keluhan::class, 'customer_id', 'customer_id');
+    }
 }
+

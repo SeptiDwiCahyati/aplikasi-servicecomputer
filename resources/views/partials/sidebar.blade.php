@@ -25,18 +25,20 @@
         <div class="navbar-nav w-100">
             <a href="{{ route('home') }}" class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}"><i
                     class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-            <a href="{{ route('keluhan.index') }}"
-                class="nav-item nav-link {{ request()->routeIs('keluhan.index') ? 'active' : '' }}"><i
-                    class="fa fa-exclamation-circle me-2"></i>Keluhan</a>
+
             <a href="{{ route('customers.index') }}"
                 class="nav-item nav-link {{ request()->routeIs('customers.index') ? 'active' : '' }}"><i
                     class="fa fa-users me-2"></i>Customer</a>
-            <a href="{{ route('computers.index') }}"
-                class="nav-item nav-link {{ request()->routeIs('computers.index') ? 'active' : '' }}"><i
-                    class="fa fa-desktop me-2"></i>Komputer</a>
+            <a href="{{ route('keluhan.index') }}"
+                class="nav-item nav-link {{ request()->routeIs('keluhan.index') ? 'active' : '' }}"><i
+                    class="fa fa-exclamation-circle me-2"></i>Keluhan</a>
             <a href="{{ route('servis.index') }}"
                 class="nav-item nav-link {{ request()->routeIs('servis.index') ? 'active' : '' }}"><i
                     class="fa fa-wrench me-2"></i>Servis</a>
+            <a href="{{ route('computers.index') }}"
+                class="nav-item nav-link {{ request()->routeIs('computers.index') ? 'active' : '' }}"><i
+                    class="fa fa-desktop me-2"></i>Komputer</a>
+
             <a href="{{ route('barang.index') }}"
                 class="nav-item nav-link {{ request()->routeIs('barang.index') ? 'active' : '' }}"><i
                     class="fa fa-boxes me-2"></i>Barang</a>

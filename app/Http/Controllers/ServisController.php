@@ -12,9 +12,10 @@ class ServisController extends Controller
 {
     public function index()
     {
-        $servis = Servis::with('items')->get();
+        $servis = Servis::with('items.barang')->get();
         return view('servis.index', compact('servis'));
     }
+
 
     public function create()
     {
@@ -64,6 +65,7 @@ class ServisController extends Controller
         $servis = Servis::with(['pegawai', 'items.barang'])->findOrFail($id);
         return view('servis.show', compact('servis'));
     }
+
     public function destroy($id)
     {
         $servis = Servis::findOrFail($id);

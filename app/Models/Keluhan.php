@@ -27,4 +27,8 @@ class Keluhan extends Model
     {
         return $this->belongsTo(Computer::class, 'id_komputer');
     }
+    public function servis()
+    {
+        return $this->hasMany(Servis::class, 'keluhan_id', 'id_keluhan');
+    }
 }

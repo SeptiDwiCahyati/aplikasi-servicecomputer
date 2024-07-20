@@ -19,6 +19,7 @@
                             <li>{{ $item->barang->nama_barang }} ({{ $item->jumlah }})</li>
                         @endforeach
                     </ul>
+                    <h5>Total Harga: {{ $servis->total_harga }}</h5>
                     <a href="{{ route('servis.index') }}" class="btn btn-primary">Back</a>
                 </div>
             </div>

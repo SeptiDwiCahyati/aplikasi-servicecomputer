@@ -1,7 +1,5 @@
 <?php
 
-// HomeController.php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -17,12 +15,13 @@ class HomeController extends Controller
         $jumlahServisHariIni = Servis::whereDate('tanggal_servis', today())->count();
         $totalKeluhan = Keluhan::count();
         $totalServis = Servis::count();
+        $keluhanServis = Keluhan::with(['customer', 'servis.pegawai', 'servis.items.barang'])->get();
 
         Log::info('Total Keluhan Hari Ini: ' . $totalKeluhanHariIni);
         Log::info('Jumlah Servis Hari Ini: ' . $jumlahServisHariIni);
         Log::info('Total Keluhan: ' . $totalKeluhan);
         Log::info('Total Servis: ' . $totalServis);
 
-        return view('home', compact('totalKeluhanHariIni', 'jumlahServisHariIni', 'totalKeluhan', 'totalServis'));
+        return view('home', compact('totalKeluhanHariIni', 'jumlahServisHariIni', 'totalKeluhan', 'totalServis', 'keluhanServis'));
     }
 }

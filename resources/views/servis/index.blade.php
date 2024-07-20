@@ -15,9 +15,9 @@
                             <th>ID</th>
                             <th>Keluhan ID</th>
                             <th>Pegawai ID</th>
-                            <th>Barang ID</th>
                             <th>Tanggal Servis</th>
                             <th>Deskripsi Servis</th>
+                            <th>Total Harga</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -27,9 +27,9 @@
                                 <td>{{ $item->servis_id }}</td>
                                 <td>{{ $item->keluhan_id }}</td>
                                 <td>{{ $item->pegawai_id }}</td>
-                                <td>{{ $item->barang_id }}</td>
                                 <td>{{ $item->tanggal_servis }}</td>
                                 <td>{{ $item->deskripsi_servis }}</td>
+                                <td>{{ $item->total_harga }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ route('servis.show', $item->servis_id) }}"
