@@ -22,4 +22,15 @@ class Barang extends Model
     {
         return $this->hasMany(ItemServis::class, 'barang_id', 'id_barang');
     }
+
+    // Metode untuk mengurangi stok
+    public function kurangiStok($jumlah)
+    {
+        if ($this->stok >= $jumlah) {
+            $this->stok -= $jumlah;
+            $this->save();
+            return true;
+        }
+        return false;
+    }
 }

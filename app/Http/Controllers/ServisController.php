@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -28,9 +29,6 @@ class ServisController extends Controller
         return response()->json(['success' => true]);
     }
 
-
-
-
     public function edit($id)
     {
         $servis = Servis::with('items')->findOrFail($id);
@@ -47,7 +45,6 @@ class ServisController extends Controller
         $barang = Barang::all();
         return view('servis.create', compact('keluhan', 'pegawai', 'barang'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -71,12 +68,20 @@ class ServisController extends Controller
         ]));
 
         $servis->items()->delete();
+
         foreach ($request->barang_id as $key => $barangId) {
-            ItemServis::create([
-                'servis_id' => $servis->servis_id,
-                'barang_id' => $barangId,
-                'jumlah' => $request->jumlah[$key],
-            ]);
+            $barang = Barang::findOrFail($barangId);
+            $jumlah = $request->jumlah[$key];
+
+            if ($barang->kurangiStok($jumlah)) {
+                ItemServis::create([
+                    'servis_id' => $servis->servis_id,
+                    'barang_id' => $barangId,
+                    'jumlah' => $jumlah,
+                ]);
+            } else {
+                return redirect()->back()->withErrors("Stok barang {$barang->nama_barang} tidak cukup.");
+            }
         }
 
         return redirect()->route('servis.index')->with('success', 'Servis berhasil diupdate');
@@ -104,15 +109,23 @@ class ServisController extends Controller
 
         if ($servis->servis_id) {
             foreach ($request->barang_id as $key => $barangId) {
-                ItemServis::create([
-                    'servis_id' => $servis->servis_id,
-                    'barang_id' => $barangId,
-                    'jumlah' => $request->jumlah[$key],
-                ]);
+                $barang = Barang::findOrFail($barangId);
+                $jumlah = $request->jumlah[$key];
+
+                if ($barang->kurangiStok($jumlah)) {
+                    ItemServis::create([
+                        'servis_id' => $servis->servis_id,
+                        'barang_id' => $barangId,
+                        'jumlah' => $jumlah,
+                    ]);
+                } else {
+                    return redirect()->back()->withErrors("Stok barang {$barang->nama_barang} tidak cukup.");
+                }
             }
         } else {
             return redirect()->back()->withErrors('Failed to create Servis.');
         }
+
         return redirect()->route('servis.index')->with('success', 'Servis berhasil ditambahkan');
     }
 
@@ -121,7 +134,6 @@ class ServisController extends Controller
         $servis = Servis::with('keluhan.customer', 'pegawai', 'items.barang')->findOrFail($id);
         return view('servis.detail_servis', compact('servis'));
     }
-
 
     public function destroy($id)
     {

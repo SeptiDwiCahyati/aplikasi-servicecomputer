@@ -1,4 +1,10 @@
-<form action="{{ route('servis.store') }}" method="POST">
+<style>
+    .error-message {
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+</style>
+<form action="{{ route('servis.store') }}" method="POST" onsubmit="return validateForm()">
     @csrf
     <div class="form-group mb-3">
         <label for="keluhan_id">ID Keluhan</label>
@@ -21,16 +27,23 @@
     </div>
     <div id="barang-fields-container">
         <div class="form-group barang-field mb-3 p-3" style="background-color: #e9ecef;">
-            <label for="barang_id">Barang 1</label>
-            <select class="form-control barang-select" name="barang_id[]" required>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <label for="barang_id">Barang 1</label>
+            </div>
+            <select class="form-control barang-select mb-2" name="barang_id[]" required>
                 <option value="">Pilih Barang</option>
                 @foreach ($barang as $item)
-                    <option value="{{ $item->id_barang }}">{{ $item->id_barang }} - {{ $item->nama_barang }}</option>
+                    <option value="{{ $item->id_barang }}" data-stok="{{ $item->stok }}">{{ $item->id_barang }} -
+                        {{ $item->nama_barang }} (Stok: {{ $item->stok }})</option>
                 @endforeach
             </select>
             <label for="jumlah">Jumlah</label>
-            <input type="number" class="form-control" name="jumlah[]" required>
+            <input type="number" class="form-control" name="jumlah[]" required min="1">
+            <div class="error-message text-danger mt-2" style="display: none;"></div>
         </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <button type="button" class="btn btn-secondary" onclick="addBarangField()">Tambah Barang</button>
     </div>
     <div class="form-group mb-3">
         <label for="tanggal_servis">Tanggal Servis</label>
@@ -42,9 +55,7 @@
         <textarea class="form-control" id="deskripsi_servis" name="deskripsi_servis" required
             placeholder="Masukkan deskripsi servis"></textarea>
     </div>
-
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <button type="button" class="btn btn-secondary" onclick="addBarangField()">Tambah Barang</button>
+    <div class="form-group mb-3">
         <button type="submit" class="btn btn-primary">Simpan</button>
     </div>
 </form>
@@ -58,20 +69,21 @@
         var container = document.getElementById('barang-fields-container');
         var backgroundColor = barangCounter % 2 === 0 ? '#e9ecef' : '#f8f9fa';
         var fieldHTML = `
-        <div class="form-group barang-field mb-3 p-3" style="background-color: ${backgroundColor};" id="barang-field-${barangCounter}">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <label for="barang_id">Barang ${barangCounter}</label>
-                <button type="button" class="btn btn-danger btn-sm" onclick="removeBarangField(${barangCounter})">Batal</button>
-            </div>
-            <select class="form-control barang-select mb-2" name="barang_id[]" required>
-                <option value="">Pilih Barang</option>
-                @foreach ($barang as $item)
-                    <option value="{{ $item->id_barang }}">{{ $item->id_barang }} - {{ $item->nama_barang }}</option>
-                @endforeach
-            </select>
-            <label for="jumlah">Jumlah</label>
-            <input type="number" class="form-control" name="jumlah[]" required>
-        </div>`;
+    <div class="form-group barang-field mb-3 p-3" style="background-color: ${backgroundColor};" id="barang-field-${barangCounter}">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <label for="barang_id">Barang ${barangCounter}</label>
+            <button type="button" class="btn btn-danger btn-sm" onclick="removeBarangField(${barangCounter})">Batal</button>
+        </div>
+        <select class="form-control barang-select mb-2" name="barang_id[]" required>
+            <option value="">Pilih Barang</option>
+            @foreach ($barang as $item)
+                <option value="{{ $item->id_barang }}" data-stok="{{ $item->stok }}">{{ $item->id_barang }} - {{ $item->nama_barang }} (Stok: {{ $item->stok }})</option>
+            @endforeach
+        </select>
+        <label for="jumlah">Jumlah</label>
+        <input type="number" class="form-control" name="jumlah[]" required min="1">
+        <div class="error-message text-danger mt-2" style="display: none;"></div>
+    </div>`;
         container.insertAdjacentHTML('beforeend', fieldHTML);
         updateBarangOptions();
     }
@@ -99,7 +111,7 @@
             select.innerHTML = `
                 <option value="">Pilih Barang</option>
                 @foreach ($barang as $item)
-                    <option value="{{ $item->id_barang }}">{{ $item->id_barang }} - {{ $item->nama_barang }}</option>
+                    <option value="{{ $item->id_barang }}" data-stok="{{ $item->stok }}">{{ $item->id_barang }} - {{ $item->nama_barang }} (Stok: {{ $item->stok }})</option>
                 @endforeach
             `;
             selectedBarang.forEach(value => {
@@ -109,5 +121,31 @@
             });
             select.value = currentValue;
         });
+    }
+
+    function validateForm() {
+        let valid = true;
+
+        document.querySelectorAll('.barang-field').forEach(field => {
+            const select = field.querySelector('.barang-select');
+            const stok = parseInt(select.options[select.selectedIndex].getAttribute('data-stok'));
+            const jumlah = parseInt(field.querySelector('input[type="number"]').value);
+            const errorElement = field.querySelector('.error-message');
+
+            errorElement.style.display = 'none';
+            errorElement.textContent = '';
+
+            if (jumlah <= 0) {
+                valid = false;
+                errorElement.textContent = `Jumlah barang harus lebih dari 0.`;
+                errorElement.style.display = 'block';
+            } else if (jumlah > stok) {
+                valid = false;
+                errorElement.textContent = `Stok tidak cukup. Tersedia: ${stok}, diminta: ${jumlah}`;
+                errorElement.style.display = 'block';
+            }
+        });
+
+        return valid;
     }
 </script>

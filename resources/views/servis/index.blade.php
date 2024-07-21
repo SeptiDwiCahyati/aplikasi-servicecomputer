@@ -54,7 +54,7 @@
                                     <!-- Tombol selesaikan servis -->
                                     <button type="button" class="btn btn-success btn-sm complete-btn"
                                         data-id="{{ $item->servis_id }}">
-                                        <i class="bi bi-check-circle"></i> Tandai sebagai Selesai
+                                        <i class="bi bi-check-circle"></i> Konfirmasi
                                     </button>
                                 </td>
                             </tr>
