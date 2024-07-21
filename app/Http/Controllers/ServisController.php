@@ -118,14 +118,10 @@ class ServisController extends Controller
 
     public function show($id)
     {
-        $servis = Servis::with(['pegawai', 'items.barang'])->findOrFail($id);
-
-        if (request()->ajax()) {
-            return view('servis.partials.view', compact('servis'))->render();
-        }
-
-        return view('servis.show', compact('servis'));
+        $servis = Servis::with('keluhan.customer', 'pegawai', 'items.barang')->findOrFail($id);
+        return view('servis.detail_servis', compact('servis'));
     }
+
 
     public function destroy($id)
     {

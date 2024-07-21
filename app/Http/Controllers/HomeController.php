@@ -16,11 +16,21 @@ class HomeController extends Controller
         $totalKeluhan = Keluhan::count();
         $totalServis = Servis::count();
 
-        // Mengambil keluhan dengan servis yang statusnya selesai
-        $keluhanServis = Keluhan::with([
+        // Mengambil keluhan dengan servis yang statusnya selesai (status = 1)
+        $keluhanServisSelesai = Keluhan::with([
             'customer',
             'servis' => function ($query) {
-                $query->where('status', 'selesai');
+                $query->where('status', '1');
+            },
+            'servis.pegawai',
+            'servis.items.barang'
+        ])->get();
+
+        // Mengambil keluhan dengan servis yang statusnya belum selesai (status = 0)
+        $keluhanServisBelumSelesai = Keluhan::with([
+            'customer',
+            'servis' => function ($query) {
+                $query->where('status', '0');
             },
             'servis.pegawai',
             'servis.items.barang'
@@ -31,6 +41,7 @@ class HomeController extends Controller
         Log::info('Total Keluhan: ' . $totalKeluhan);
         Log::info('Total Servis: ' . $totalServis);
 
-        return view('home', compact('totalKeluhanHariIni', 'jumlahServisHariIni', 'totalKeluhan', 'totalServis', 'keluhanServis'));
+        return view('home', compact('totalKeluhanHariIni', 'jumlahServisHariIni', 'totalKeluhan', 'totalServis', 'keluhanServisSelesai', 'keluhanServisBelumSelesai'));
     }
+
 }
