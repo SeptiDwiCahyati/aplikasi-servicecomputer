@@ -32,17 +32,19 @@
                             <th style="width: 15%;">Merek</th>
                             <th style="width: 15%;">Harga</th>
                             <th style="width: 10%;">Stok</th>
+                            <th style="width: 20%;">Supplier</th>
                             <th class="text-center" style="width: 25%;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($barang as $item)
+                        @forelse ($barang as $item)
                             <tr>
                                 <td class="text-center">{{ $item->id_barang }}</td>
                                 <td class="text-center">{{ $item->nama_barang }}</td>
                                 <td class="text-center">{{ $item->merek }}</td>
                                 <td class="text-center">{{ $item->harga }}</td>
                                 <td class="text-center">{{ $item->stok }}</td>
+                                <td class="text-center">{{ $item->supplier ? $item->supplier->nama_supplier : 'N/A' }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <a href="{{ route('barang.show', $item->id_barang) }}"
@@ -57,9 +59,17 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center">Tidak ada data barang</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
+            </div>
+            <!-- Tambahkan pagination -->
+            <div class="d-flex justify-content-end mt-4">
+                {{ $barang->onEachSide(1)->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>

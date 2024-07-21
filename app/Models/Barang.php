@@ -16,21 +16,11 @@ class Barang extends Model
         'harga',
         'stok',
         'satuan',
+        'supplier_id'
     ];
 
-    public function itemServis()
+    public function supplier()
     {
-        return $this->hasMany(ItemServis::class, 'barang_id', 'id_barang');
-    }
-
-    // Metode untuk mengurangi stok
-    public function kurangiStok($jumlah)
-    {
-        if ($this->stok >= $jumlah) {
-            $this->stok -= $jumlah;
-            $this->save();
-            return true;
-        }
-        return false;
+        return $this->belongsTo(Supplier::class, 'supplier_id', 'id_supplier');
     }
 }

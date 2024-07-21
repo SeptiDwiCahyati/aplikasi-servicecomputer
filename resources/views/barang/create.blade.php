@@ -42,6 +42,18 @@
                     <input type="number" class="form-control" id="stok" name="stok" value="{{ old('stok') }}"
                         required>
                 </div>
+                <div class="form-group mb-3">
+                    <label for="supplier_id">Supplier:</label>
+                    <select id="supplier_id" name="supplier_id" class="form-select" required>
+                        <option value="" disabled selected>Pilih Supplier</option>
+                        @foreach ($suppliers as $supplier)
+                            <option value="{{ $supplier->id_supplier }}"
+                                {{ old('supplier_id') == $supplier->id_supplier ? 'selected' : '' }}>
+                                {{ $supplier->nama_supplier }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
