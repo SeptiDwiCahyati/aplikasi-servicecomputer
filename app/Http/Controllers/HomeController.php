@@ -15,7 +15,16 @@ class HomeController extends Controller
         $jumlahServisHariIni = Servis::whereDate('tanggal_servis', today())->count();
         $totalKeluhan = Keluhan::count();
         $totalServis = Servis::count();
-        $keluhanServis = Keluhan::with(['customer', 'servis.pegawai', 'servis.items.barang'])->get();
+
+        // Mengambil keluhan dengan servis yang statusnya selesai
+        $keluhanServis = Keluhan::with([
+            'customer',
+            'servis' => function ($query) {
+                $query->where('status', 'selesai');
+            },
+            'servis.pegawai',
+            'servis.items.barang'
+        ])->get();
 
         Log::info('Total Keluhan Hari Ini: ' . $totalKeluhanHariIni);
         Log::info('Jumlah Servis Hari Ini: ' . $jumlahServisHariIni);

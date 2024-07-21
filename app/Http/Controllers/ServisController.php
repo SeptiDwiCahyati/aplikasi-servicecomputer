@@ -42,11 +42,12 @@ class ServisController extends Controller
 
     public function create()
     {
-        $keluhan = Keluhan::all();
+        $keluhan = Keluhan::with('customer')->get();
         $pegawai = Pegawai::all();
         $barang = Barang::all();
         return view('servis.create', compact('keluhan', 'pegawai', 'barang'));
     }
+
 
     public function update(Request $request, $id)
     {
