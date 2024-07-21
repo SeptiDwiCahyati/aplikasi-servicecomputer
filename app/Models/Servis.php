@@ -17,7 +17,8 @@ class Servis extends Model
         'keluhan_id',
         'pegawai_id',
         'tanggal_servis',
-        'deskripsi_servis'
+        'deskripsi_servis',
+        'status'
     ];
 
     public function items()

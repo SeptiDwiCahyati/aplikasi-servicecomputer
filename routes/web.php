@@ -62,4 +62,5 @@ Route::prefix('servis')->group(function () {
     Route::put('/{id}', [ServisController::class, 'update'])->name('servis.update');
     Route::delete('/{id}', [ServisController::class, 'destroy'])->name('servis.destroy');
     Route::get('/{id}', [ServisController::class, 'show'])->name('servis.show');
+    Route::put('/{id}/complete', [ServisController::class, 'markAsComplete'])->name('servis.complete');
 });

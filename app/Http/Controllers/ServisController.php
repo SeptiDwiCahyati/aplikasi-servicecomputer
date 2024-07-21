@@ -12,12 +12,24 @@ class ServisController extends Controller
 {
     public function index()
     {
-        $servis = Servis::with('items.barang')->get();
+        $servis = Servis::with('items.barang')->where('status', false)->get();
         $keluhan = Keluhan::all();
         $pegawai = Pegawai::all();
         $barang = Barang::all();
         return view('servis.index', compact('servis', 'keluhan', 'pegawai', 'barang'));
     }
+
+    public function markAsComplete($id)
+    {
+        $servis = Servis::findOrFail($id);
+        $servis->status = true;
+        $servis->save();
+
+        return response()->json(['success' => true]);
+    }
+
+
+
 
     public function edit($id)
     {
