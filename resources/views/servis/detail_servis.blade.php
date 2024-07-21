@@ -1,5 +1,4 @@
 <div class="card">
-
     <div class="card-body">
         <div class="row mb-3">
             <div class="col-md-4 font-weight-bold">Nama Customer:</div>
@@ -34,6 +33,32 @@
                 @else
                     <span class="badge bg-danger">Belum Selesai</span>
                 @endif
+            </div>
+        </div>
+        <!-- Rincian Barang -->
+        <div class="row mb-3">
+            <div class="col-md-12 font-weight-bold">Rincian Barang:</div>
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nama Barang</th>
+                            <th>Jumlah</th>
+                            <th>Harga per Unit</th>
+                            <th>Total Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($servis->items as $item)
+                            <tr>
+                                <td>{{ $item->barang->nama_barang }}</td>
+                                <td>{{ $item->jumlah }}</td>
+                                <td>Rp. {{ number_format($item->barang->harga, 2) }}</td>
+                                <td>Rp. {{ number_format($item->jumlah * $item->barang->harga, 2) }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -32,6 +32,17 @@
             <input type="number" class="form-control" name="jumlah[]" required>
         </div>
     </div>
+    <div class="form-group mb-3">
+        <label for="tanggal_servis">Tanggal Servis</label>
+        <input type="date" class="form-control" id="tanggal_servis" name="tanggal_servis"
+            value="{{ date('Y-m-d') }}" required>
+    </div>
+    <div class="form-group mb-3">
+        <label for="deskripsi_servis">Deskripsi Servis</label>
+        <textarea class="form-control" id="deskripsi_servis" name="deskripsi_servis" required
+            placeholder="Masukkan deskripsi servis"></textarea>
+    </div>
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <button type="button" class="btn btn-secondary" onclick="addBarangField()">Tambah Barang</button>
         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -47,19 +58,30 @@
         var container = document.getElementById('barang-fields-container');
         var backgroundColor = barangCounter % 2 === 0 ? '#e9ecef' : '#f8f9fa';
         var fieldHTML = `
-            <div class="form-group barang-field mb-3 p-3" style="background-color: ${backgroundColor};">
+        <div class="form-group barang-field mb-3 p-3" style="background-color: ${backgroundColor};" id="barang-field-${barangCounter}">
+            <div class="d-flex justify-content-between align-items-center mb-2">
                 <label for="barang_id">Barang ${barangCounter}</label>
-                <select class="form-control barang-select" name="barang_id[]" required>
-                    <option value="">Pilih Barang</option>
-                    @foreach ($barang as $item)
-                        <option value="{{ $item->id_barang }}">{{ $item->id_barang }} - {{ $item->nama_barang }}</option>
-                    @endforeach
-                </select>
-                <label for="jumlah">Jumlah</label>
-                <input type="number" class="form-control" name="jumlah[]" required>
-            </div>`;
+                <button type="button" class="btn btn-danger btn-sm" onclick="removeBarangField(${barangCounter})">Batal</button>
+            </div>
+            <select class="form-control barang-select mb-2" name="barang_id[]" required>
+                <option value="">Pilih Barang</option>
+                @foreach ($barang as $item)
+                    <option value="{{ $item->id_barang }}">{{ $item->id_barang }} - {{ $item->nama_barang }}</option>
+                @endforeach
+            </select>
+            <label for="jumlah">Jumlah</label>
+            <input type="number" class="form-control" name="jumlah[]" required>
+        </div>`;
         container.insertAdjacentHTML('beforeend', fieldHTML);
         updateBarangOptions();
+    }
+
+    function removeBarangField(id) {
+        var field = document.getElementById(`barang-field-${id}`);
+        if (field) {
+            field.remove();
+            updateBarangOptions();
+        }
     }
 
     document.addEventListener('change', function(event) {
