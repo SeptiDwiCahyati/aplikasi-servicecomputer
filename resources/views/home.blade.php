@@ -96,57 +96,7 @@
     </div>
     <!-- Riwayat Servis Selesai End -->
 
-    <!-- Riwayat Servis Belum Selesai Start -->
-    <div class="container-fluid pt-4 px-4">
-        <div class="bg-light text-center rounded p-4">
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0">Riwayat Servis Belum Selesai</h6>
-                <a href="{{ route('servis.index') }}">Show All</a>
-            </div>
-            <div class="table-responsive">
-                <table class="table text-start align-middle table-bordered table-hover mb-0">
-                    <thead>
-                        <tr class="text-dark">
-                            <th>Nama Customer</th>
-                            <th>Nama Karyawan</th>
-                            <th>Tanggal</th>
-                            <th>Invoice/ID</th>
-                            <th>Total Biaya</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($keluhanServisBelumSelesai as $keluhan)
-                            @foreach ($keluhan->servis as $servis)
-                                <tr>
-                                    <td>{{ $keluhan->customer->nama_customer }}</td>
-                                    <td>{{ $servis->pegawai->nama_pegawai }}</td>
-                                    <td>{{ $servis->tanggal_servis }}</td>
-                                    <td>{{ $servis->servis_id }}</td>
-                                    <td>
-                                        @php
-                                            $totalHarga =
-                                                $keluhan->ongkos +
-                                                $servis->items->sum(function ($item) {
-                                                    return $item->jumlah * $item->barang->harga;
-                                                });
-                                        @endphp
-                                        {{ number_format($totalHarga, 2) }}
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary detail-btn" data-bs-toggle="modal"
-                                            data-bs-target="#detailModal"
-                                            data-id="{{ $servis->servis_id }}">Detail</button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!-- Riwayat Servis Belum Selesai End -->
+
 
     <!-- Modal -->
     <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
