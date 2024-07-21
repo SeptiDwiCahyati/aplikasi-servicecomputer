@@ -22,14 +22,14 @@
     <div id="barang-fields-container">
         <div class="form-group barang-field mb-3 p-3" style="background-color: #e9ecef;">
             <label for="barang_id">Barang 1</label>
-            <select class="form-control" id="barang_id" name="barang_id[]" required>
+            <select class="form-control barang-select" name="barang_id[]" required>
                 <option value="">Pilih Barang</option>
                 @foreach ($barang as $item)
                     <option value="{{ $item->id_barang }}">{{ $item->id_barang }} - {{ $item->nama_barang }}</option>
                 @endforeach
             </select>
             <label for="jumlah">Jumlah</label>
-            <input type="number" class="form-control" id="jumlah" name="jumlah[]" required>
+            <input type="number" class="form-control" name="jumlah[]" required>
         </div>
     </div>
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -40,6 +40,7 @@
 
 <script>
     let barangCounter = 1;
+    let selectedBarang = [];
 
     function addBarangField() {
         barangCounter++;
@@ -48,15 +49,43 @@
         var fieldHTML = `
             <div class="form-group barang-field mb-3 p-3" style="background-color: ${backgroundColor};">
                 <label for="barang_id">Barang ${barangCounter}</label>
-                <select class="form-control" id="barang_id" name="barang_id[]" required>
+                <select class="form-control barang-select" name="barang_id[]" required>
                     <option value="">Pilih Barang</option>
                     @foreach ($barang as $item)
                         <option value="{{ $item->id_barang }}">{{ $item->id_barang }} - {{ $item->nama_barang }}</option>
                     @endforeach
                 </select>
                 <label for="jumlah">Jumlah</label>
-                <input type="number" class="form-control" id="jumlah" name="jumlah[]" required>
+                <input type="number" class="form-control" name="jumlah[]" required>
             </div>`;
         container.insertAdjacentHTML('beforeend', fieldHTML);
+        updateBarangOptions();
+    }
+
+    document.addEventListener('change', function(event) {
+        if (event.target.matches('.barang-select')) {
+            selectedBarang = Array.from(document.querySelectorAll('.barang-select'))
+                .map(select => select.value)
+                .filter(value => value !== '');
+            updateBarangOptions();
+        }
+    });
+
+    function updateBarangOptions() {
+        document.querySelectorAll('.barang-select').forEach(select => {
+            const currentValue = select.value;
+            select.innerHTML = `
+                <option value="">Pilih Barang</option>
+                @foreach ($barang as $item)
+                    <option value="{{ $item->id_barang }}">{{ $item->id_barang }} - {{ $item->nama_barang }}</option>
+                @endforeach
+            `;
+            selectedBarang.forEach(value => {
+                if (value !== currentValue) {
+                    select.querySelector(`option[value="${value}"]`).style.display = 'none';
+                }
+            });
+            select.value = currentValue;
+        });
     }
 </script>
