@@ -1,23 +1,36 @@
 ## APLIKASI SERVICE COMPUTER
+
 <h1>Customer</h1>
 <p align="center">
-<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/costumer.png" alt="Screenshot">
-<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/costumer_edit.png" alt="Screenshot">
-<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/costumer_tambah.png" alt="Screenshot">
-
-<h1>keluhan</h1>
-<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_1.png" alt="Screenshot">
-<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_daftar.png" alt="Screenshot">
-<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_edit.png" alt="Screenshot">
-<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_konfirmasi.png" alt="Screenshot">
-<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/keluhan_tambah.png" alt="Screenshot">
-
-<h1>komputer</h1>
-<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/komputer_daftar.png" alt="Screenshot">
-<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/komputer_daftar.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_customer.png" alt="Screenshot">
 </p>
-
-
+<h1>Keluhan</h1>
+<p align="center">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_keluhan.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_keluhan_edit.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_keluhan_tambah.png" alt="Screenshot">
+</p>
+<h1>Komputer</h1>
+<p align="center">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_komputer.png" alt="Screenshot">
+</p>
+<h1>Servis</h1>
+<p align="center">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_servis.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_servis_edit.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_servis_konfirm.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_servis_tambah.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_servis_detail.png" alt="Screenshot">
+</p>
+<h1>Barang</h1>
+<p align="center">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_barang.png" alt="Screenshot">
+</p>
+<h1>Dashboard</h1>
+<p align="center">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_dashboard.png" alt="Screenshot">
+<img src="https://github.com/SeptiDwiCahyati/aplikasi-servicecomputer/blob/master/screenshot/tab_dashboard_detail.png" alt="Screenshot">
+</p>
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
@@ -32,13 +45,13 @@
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   [Simple, fast routing engine](https://laravel.com/docs/routing).
+-   [Powerful dependency injection container](https://laravel.com/docs/container).
+-   Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+-   Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+-   Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+-   [Robust background job processing](https://laravel.com/docs/queues).
+-   [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
@@ -56,19 +69,19 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 
 ### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+-   **[Vehikl](https://vehikl.com/)**
+-   **[Tighten Co.](https://tighten.co)**
+-   **[WebReinvent](https://webreinvent.com/)**
+-   **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+-   **[64 Robots](https://64robots.com)**
+-   **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+-   **[Cyber-Duck](https://cyber-duck.co.uk)**
+-   **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+-   **[Jump24](https://jump24.co.uk)**
+-   **[Redberry](https://redberry.international/laravel/)**
+-   **[Active Logic](https://activelogic.com)**
+-   **[byte5](https://byte5.de)**
+-   **[OP.GG](https://op.gg)**
 
 ## Contributing
 
