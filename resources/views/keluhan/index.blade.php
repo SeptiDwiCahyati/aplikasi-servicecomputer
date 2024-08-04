@@ -77,6 +77,7 @@
                                             onclick="confirmDelete('{{ $keluhan->id_keluhan }}')">
                                             <i class="fa fa-check me-1"></i>Selesai
                                         </button>
+
                                     </form>
                                 </td>
                             </tr>
@@ -268,9 +269,7 @@
                     alert('Terjadi kesalahan, coba lagi nanti');
                 });
         }
-    </script>
 
-    <script>
         function submitCheckCustomerForm() {
             const customerId = document.getElementById('customer_id').value;
             if (!customerId) {
@@ -304,15 +303,7 @@
                     alert('Terjadi kesalahan, coba lagi nanti');
                 });
         }
-    </script>
-@endsection
 
-@push('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-@endpush
-
-@push('scripts')
-    <script>
         function confirmDelete(id) {
             if (confirm('Apakah Anda yakin ingin menyelesaikan keluhan ini?')) {
                 document.getElementById('delete-form-' + id).submit();
@@ -337,4 +328,4 @@
             });
         });
     </script>
-@endpush
+@endsection

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,5 +23,21 @@ class Barang extends Model
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id', 'id_supplier');
+    }
+
+    // Add the kurangiStok method
+    public function kurangiStok($jumlah)
+    {
+        // Check if there's enough stock
+        if ($this->stok >= $jumlah) {
+            // Reduce the stock
+            $this->stok -= $jumlah;
+            $this->save(); // Save the changes to the database
+
+            return true;
+        }
+
+        // If not enough stock, return false
+        return false;
     }
 }
