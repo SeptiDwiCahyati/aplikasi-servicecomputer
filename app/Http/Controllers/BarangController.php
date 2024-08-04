@@ -17,7 +17,6 @@ class BarangController extends Controller
             $query->where('merek', $merek);
         }
 
-        // Menambahkan pagination dengan 10 item per halaman
         $barang = $query->paginate(10);
         return view('barang.index', [
             'barang' => $barang,
